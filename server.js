@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
@@ -8,21 +9,20 @@ app.use(express.json());
 
 app.use(bodyParser.json()); // To parse JSON request bodies
 
-// MySQL connection setup
+// MySQL connection setup using environment variables
 const db = mysql.createConnection({
-  host: 'localhost', // Or your MySQL server hostname
-  user: 'root', // Your MySQL username
-  password: 'Hemdeep@2003', // Your MySQL password
-  database: 'school_data'
-});
-
-db.connect(err => {
-  if (err) {
-    console.error('Database connection failed: ' + err.stack);
-    return;
-  }
-  console.log('Connected to MySQL database');
-});
+    host: process.env.DB_HOST,     // Use environment variable for host
+    user: process.env.DB_USER,     // Use environment variable for user
+    password: process.env.DB_PASSWORD,  // Use environment variable for password
+    database: process.env.DB_NAME  // Use environment variable for database name
+  });
+  db.connect(err => {
+    if (err) {
+      console.error('Database connection failed: ' + err.stack);
+      return;
+    }
+    console.log('Connected to MySQL database');
+  });
 
 // Add School API
 // Root route (optional)
