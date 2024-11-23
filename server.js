@@ -25,7 +25,11 @@ db.connect(err => {
 });
 
 // Add School API
-// Add School API
+// Root route (optional)
+app.get('/', (req, res) => {
+    res.send('Welcome to the School API!');
+  });
+  
 app.post('/addSchool', (req, res) => {
     const { name, address, latitude, longitude } = req.body;
   
